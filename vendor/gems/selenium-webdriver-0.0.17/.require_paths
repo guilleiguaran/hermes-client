@@ -1,0 +1,6 @@
+common/src/rb/lib
+firefox/src/rb/lib
+chrome/src/rb/lib
+jobbie/src/rb/lib
+remote/client/src/rb/lib
+bin
