@@ -8,7 +8,7 @@ gem "ruby-debug"
 ## Bundle edge rails:
 # gem "rails", :git => "git://github.com/rails/rails.git"
 
-#gem "mysql"
+gem "mysql"
 
 ## Bundle the gems you use:
 # gem "bj"
