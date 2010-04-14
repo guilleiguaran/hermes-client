@@ -1,1 +1,24 @@
-<%= raw(@map.div(:width => 640, :height => 480)) %>
+<div id="left">
+<form name="coordinates" id="coordinates">
+	<p><strong>Origen</strong>
+	<br/ >
+	<label for="latitud_origen">Latitud</label>
+	<input type="text" name="latitud_origen" id="latitud_origen" value="<%= @start_lat%>" />
+	<br/>
+	<label for="longitud_origen">Longitud</label>
+	<input type="text" name="longitud_origen" id="longitud_origen" value="<%= @start_lon%>" />
+	</p>
+	
+	<p><strong>Destino</strong>
+	<br />
+	<label for="latitud_destino">Latitud</label>
+	<input type="text" name="latitud_destino" id="latitud_destino" value="<%= @end_lat%>" />
+	<br />
+	<label for="longitud_destino">Longitud</label>
+	<input type="text" name="longitud_destino" id="longitud_destino" value="<%= @end_lon%>" />
+	</p>
+</form>
+</div>
+<div id="center">
+<%= raw(@map.div(:width => 800, :height => 600)) %>
+</div>
