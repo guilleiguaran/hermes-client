@@ -20,7 +20,7 @@ gem "clearance"
 gem "formtastic"
 gem "ym4r"
 gem "will_paginate"
-
+gem "json"
 ## Bundle gems used only in certain environments:
 # gem "rspec", :group => :test
 group :test do

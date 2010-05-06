@@ -50,6 +50,7 @@ HermesClient::Application.routes.draw do |map|
   # just remember to delete public/index.html.
   # root :to => "welcome#index"
   root :to => "pages#index"
+  match '/update_route' => 'pages#update_route', :as => :update_route
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.

@@ -1,5 +1,5 @@
 <div id="left">
-<form name="coordinates" id="coordinates">
+<% form_tag update_route_path, :method => :get, :remote => true do %> 
 	<p><strong>Origen</strong>
 	<br/ >
 	<label for="latitud_origen">Latitud</label>
@@ -17,7 +17,8 @@
 	<label for="longitud_destino">Longitud</label>
 	<input type="text" name="longitud_destino" id="longitud_destino" value="<%= @end_lon%>" />
 	</p>
-</form>
+	<%= submit_tag 'Consultar' %>
+<% end %>
 </div>
 <div id="center">
 <%= raw(@map.div(:width => 800, :height => 600)) %>

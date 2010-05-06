@@ -2,7 +2,7 @@ class PagesController < ApplicationController
   
   def index
     
-    places = ["Estadio Romelio Martinez, Barranquilla", "Estadio Metropolitano, Barranquilla"]
+    places = ["Universidad del Norte, Barranquilla", "Estadio Metropolitano, Barranquilla"]
     results = []
     places.each do |place|
       result = Geocoding::get(place)
@@ -20,41 +20,45 @@ class PagesController < ApplicationController
     
     @map.declare_init(@start_marker,"start")
     @map.declare_init(@end_marker,"end")
-    
     @map.overlay_init(@start_marker)
     @map.overlay_init(@end_marker)
+    @map.event_init(@start_marker, :dragend,"function(){ start_marker_dragend(this); }")
+    @map.event_init(@end_marker, :dragend,"function(){ end_marker_dragend(this); }")
     
-    #@map.clear_overlays
-    #results.each do |result|
-    #  marker = GMarker.new(result[:latlon], :title => result[:address])
-    #  @map.add_overlay(marker)
-    #end
-    
-    @map.event_init(@start_marker, :dragend,
-                    "function()
-                    {
-                      var latitud_origen = document.getElementById('latitud_origen');
-                      var longitud_origen = document.getElementById('longitud_origen');
-                      var latitud = this.getLatLng().lat()+'';
-                      var longitud = this.getLatLng().lng()+'';
-                      latitud_origen.value = latitud.substring(0,latitud.indexOf('.')+8);
-                      longitud_origen.value = longitud.substring(0,longitud.indexOf('.')+8);
-                    }
-    ")
-    @map.event_init(@end_marker, :dragend,
-                    "function()
-                    {
-                      var latitud_destino = document.getElementById('latitud_destino');
-                      var longitud_destino = document.getElementById('longitud_destino');
-                      var latitud = this.getLatLng().lat()+'';
-                      var longitud = this.getLatLng().lng()+'';
-                      latitud_destino.value = latitud.substring(0,latitud.indexOf('.')+8);
-                      longitud_destino.value = longitud.substring(0,longitud.indexOf('.')+8);
-                    }
-    ")
     @start_lat = results[0][:latlon][0]
     @start_lon = results[0][:latlon][1]
     @end_lat = results[1][:latlon][0]
-    @end_lon = results[1][:latlon][1]    
+    @end_lon = results[1][:latlon][1]
   end
+  
+  def update_route
+    lat_origen  = params[:latitud_origen]
+    lon_origen  = params[:longitud_origen]
+    lat_destino = params[:latitud_destino]
+    lon_destino = params[:longitud_destino]
+    route = Hermes.get_route(lat_origen,lon_origen,lat_destino,lon_destino)
+    points = []
+    coordinates = route['coordinates']
+    
+    coordinates.each do |coordinate|
+      points << [ Float(coordinate['lat']), Float(coordinate['lon']) ]
+    end
+    
+    @map = Variable.new("map")
+    @polyline = GPolyline.new(points,"#0000ff",1,1.0)
+    #@polyline.declare("polyline")
+
+    respond_to do |format|
+      format.js { 
+        render :update do |page|
+          page << "if(polyline != undefined) { map.removeOverlay(polyline); }"
+          page << "polyline = #{@polyline.to_javascript};"
+          page << "map.addOverlay(polyline);"
+          #page << @map.add_overlay(@polyline)
+        end
+      }
+    end
+    
+  end
+  
 end
