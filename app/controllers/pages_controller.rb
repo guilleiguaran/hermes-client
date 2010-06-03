@@ -61,4 +61,32 @@ class PagesController < ApplicationController
     
   end
   
+  def all_routes
+    
+    places = ["Universidad del Norte, Barranquilla", "Estadio Metropolitano, Barranquilla"]
+    results = []
+    places.each do |place|
+      result = Geocoding::get(place)
+      if result.status == Geocoding::GEO_SUCCESS
+        results << {:latlon => result[0].latlon, :address => result[0].address}
+      end
+    end
+    
+    route = Hermes.get_all
+    points = []
+    coordinates = route['coordinates']
+    
+    @map = GMap.new("map_div")
+    @map.center_zoom_init(results[0][:latlon],13)
+    @map.control_init(:large_map => true, :map_type => true)
+    
+    coordinates.each do |coordinate|
+      point = [ Float(coordinate['lat']), Float(coordinate['lon']) ]
+      marker = GMarker.new(point, :draggable => true)
+      @map.overlay_init(marker)
+    end    
+    
+    
+  end
+  
 end
