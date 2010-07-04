@@ -45,7 +45,7 @@ class PagesController < ApplicationController
     end
     
     @map = Variable.new("map")
-    @polyline = GPolyline.new(points,"#0000ff",1,1.0)
+    @polyline = GPolyline.new(points,"#0000ff",3,1.0)
     #@polyline.declare("polyline")
 
     respond_to do |format|

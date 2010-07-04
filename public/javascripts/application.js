@@ -2,6 +2,7 @@
 // This file is automatically included by javascript_include_tag :defaults
 
 function start_marker_dragend(marker){
+	if(polyline != undefined) { map.removeOverlay(polyline); }
 	var latitud_origen = document.getElementById('latitud_origen');
 	var longitud_origen = document.getElementById('longitud_origen');
 	var latitud = marker.getLatLng().lat()+'';
@@ -11,6 +12,7 @@ function start_marker_dragend(marker){
 }
 
 function end_marker_dragend(marker){
+	if(polyline != undefined) { map.removeOverlay(polyline); }
 	var latitud_destino = document.getElementById('latitud_destino');
 	var longitud_destino = document.getElementById('longitud_destino');
 	var latitud = marker.getLatLng().lat()+'';
