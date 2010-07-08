@@ -1,5 +1,5 @@
 <div id="left">
-<% form_tag update_route_path, :method => :get, :remote => true do %> 
+<% form_tag update_route_path, :method => :get, :remote => true, :name => "form" do %> 
 	<p><strong>Origen</strong>
 	<br/ >
 	<label for="latitud_origen">Latitud</label>
@@ -23,7 +23,7 @@
 		<option value="astar">A*</option>
 	</select>
 	</p>
-	<%= submit_tag 'Consultar' %>
+	<%= submit_tag 'Consultar', :disable_with => "Espere por favor..." %>
 <% end %>
 </div>
 <div id="center">

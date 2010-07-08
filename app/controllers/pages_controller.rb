@@ -55,7 +55,8 @@ class PagesController < ApplicationController
           page << "if(polyline != undefined) { map.removeOverlay(polyline); }"
           page << "polyline = #{@polyline.to_javascript};"
           page << "map.addOverlay(polyline);"
-          #page << @map.add_overlay(@polyline)
+          page << "form.commit.disabled=false;"
+          page << "form.commit.value=\"Consultar\";"
         end
       }
     end
