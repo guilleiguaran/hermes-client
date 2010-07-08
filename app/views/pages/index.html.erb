@@ -16,6 +16,12 @@
 	<br />
 	<label for="longitud_destino">Longitud</label>
 	<input type="text" name="longitud_destino" id="longitud_destino" value="<%= @end_lon%>" />
+	<br />
+	<label for="algorithm">Algoritmo</label>
+	<select name="algorithm">
+		<option value="dijkstra">Dijkstra</option>
+		<option value="astar">A*</option>
+	</select>
 	</p>
 	<%= submit_tag 'Consultar' %>
 <% end %>

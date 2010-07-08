@@ -36,7 +36,8 @@ class PagesController < ApplicationController
     lon_origen  = params[:longitud_origen]
     lat_destino = params[:latitud_destino]
     lon_destino = params[:longitud_destino]
-    route = Hermes.get_route(lat_origen,lon_origen,lat_destino,lon_destino)
+    algorithm = params[:algorithm]
+    route = Hermes.get_route(lat_origen,lon_origen,lat_destino,lon_destino, algorithm)
     points = []
     coordinates = route['coordinates']
     
