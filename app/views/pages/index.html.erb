@@ -17,15 +17,24 @@
 	<label for="longitud_destino">Longitud</label>
 	<input type="text" name="longitud_destino" id="longitud_destino" value="<%= @end_lon%>" />
 	<br />
+	</p>
+	<p>
 	<label for="algorithm">Algoritmo</label>
 	<select name="algorithm">
 		<option value="dijkstra">Dijkstra</option>
 		<option value="astar">A*</option>
 	</select>
 	</p>
-	<%= submit_tag 'Consultar', :disable_with => "Espere por favor..." %>
+	<%= submit_tag 'Consultar', :disable_with => "Espere por favor...", :id => "commit" %>
+	<br />
+	<br />
 <% end %>
+<label for="tiempo">Tiempo Estimado</label>
+<input type="text" name="tiempo" id="tiempo" />
+<br />
+<label for="distancia">Distancia Estimada</label>
+<input type="text" name="distancia" id="distancia" />
 </div>
 <div id="center">
-<%= raw(@map.div(:width => 800, :height => 600)) %>
+<%= raw(@map.div(:width => 900, :height => 700)) %>
 </div>

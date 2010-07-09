@@ -40,6 +40,10 @@ class PagesController < ApplicationController
     route = Hermes.get_route(lat_origen,lon_origen,lat_destino,lon_destino, algorithm)
     points = []
     coordinates = route['coordinates']
+    time = route['time']
+    distance = route['distance']
+    print "time: #{time}\n"
+    print "distance: #{distance}"
     
     coordinates.each do |coordinate|
       points << [ Float(coordinate['lat']), Float(coordinate['lon']) ]
@@ -55,8 +59,10 @@ class PagesController < ApplicationController
           page << "if(polyline != undefined) { map.removeOverlay(polyline); }"
           page << "polyline = #{@polyline.to_javascript};"
           page << "map.addOverlay(polyline);"
-          page << "form.commit.disabled=false;"
-          page << "form.commit.value=\"Consultar\";"
+          page << "$('commit').disabled=false;"
+          page << "$('commit').value=\"Consultar\";"
+          page << "$('distancia').value=\"#{distance}\";"
+          page << "$('tiempo').value=\"#{time}\";"
         end
       }
     end
